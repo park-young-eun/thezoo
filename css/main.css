@@ -1,0 +1,1226 @@
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GongGothicLight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* 가운데 이미지가 좌우로 흔들리는 애니메이션 */
+@keyframes moving{
+    0%{transform: rotate(-4deg);}
+    50%{transform: rotate(4deg);}
+    100%{transform: rotate(-4deg);}
+}
+/* about 배경글자가 한바퀴 돌아가는 애니메이션 */
+@keyframes moving2{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+
+
+*{margin: 0; padding: 0;}
+ul{margin: 0; padding: 0;}
+li{list-style: none;}
+a{display: block; text-decoration: none; color: #212121;}
+html,body{font-family: 'Noto Sans KR', sans-serif; height: 100%; overflow-x: hidden;}
+img{width: 100%;}
+header, section, footer{width: 100%; float: left;box-sizing: border-box;}
+div, ul ,li{box-sizing: border-box;}
+
+/* pc버전 */
+header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.5vw;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 90;
+}
+header .logo{width: 7vw; margin-top: 0.6vw;}
+header .menu{
+    width: 40vw;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+header nav{width: 35vw; margin-top: 0.6vw;}
+header nav>ul{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+}
+header nav>ul>li{
+    position: relative;
+}
+header nav ul li a{
+    color: #fff;
+    font-size: 0.8vw;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    padding: 0.5vw 0;
+    padding-bottom: 1.3vw;
+    position: relative;
+    transition: all 0.5s;
+}
+/* 주메뉴 마우스오버 효과 */
+header nav>ul>li>a:after{
+    content: "";
+    position: absolute;
+    bottom: 0.8vw;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fcae70;
+    transition: all 0.5s;
+}
+header nav>ul>li:hover>a{
+    color: #fcae70;
+}
+header nav>ul>li:hover a:after{
+    width: 100%;
+}
+
+/* 두번째 section과 네번째 section에서는 주메뉴의 글자색이 흰색임 */
+header nav>ul>li.active>a{
+    color: #005760;
+}
+/* 서브메뉴 */
+header nav .sub{
+    display: none;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+header nav .sub li a{
+    padding: 0.8vw 1.2vw;
+    font-size: 0.7vw;
+    font-weight: 300;
+    text-align: center;
+    color: #032f34;
+    white-space: nowrap;
+}
+header nav .sub li a:hover{
+    color: #fff;
+    background-color: #fcae70;
+    transition: all 0.3s;
+}
+header .menu_btn{
+    width: 3vw;
+    height: 3vw;
+    background-image: url(../img/menu_icon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+    cursor: pointer;
+}
+/* 주메뉴에 마우스 오버했을때 서브메뉴 나타남 */
+header nav>ul>li:hover .sub{
+    display: block;
+}
+
+
+/* 화면 오른쪽 햄버거메뉴 버튼을 클릭하면 나타나는 전체사이트맵 */
+.sitemap{
+    width: 100vw; /*지금 접속한 기기의 가로크기를 100%로 잡음*/ 
+    height: 100vh; /*지금 접속한 기기의 세로크기를 100%로 잡음*/
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    flex-flow: row nowrap;
+    top: 0; left: 0;
+}
+.sitemap .site_nav{
+    width: 70%;
+}
+.sitemap .site_nav> ul{
+    display: flex;
+    flex-flow: row wrap; /*줄 바꿈 허용*/
+}
+.sitemap .site_nav> ul>li{
+    width: 33.3333%;
+    background-color: #005760;
+    padding: 3vw;
+    height: 50vh;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.5s;
+}
+.sitemap .site_nav >ul>li>a{
+    position: relative; /*직속자식객체 a:after에 position: absolute; 때문*/
+    color: #fcae70;
+    font-family: 'GongGothicMedium';
+    font-size: 1.7vw;
+    padding-bottom: 1.5vw;
+    display: inline-block;
+    transition: all 0.5s;
+}
+
+/* 주메뉴 밑줄 */
+.sitemap .site_nav >ul>li>a:after{
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fcae70;
+    left: 0;
+    bottom: 1vw;
+    transition: all 0.5s;
+}
+.sitemap .site_nav .site_sub li a{
+    color: #fff;
+    font-size: 0.9vw;
+    padding: 0.5vw 0;
+}
+
+/* .sitemap 메뉴영역에 마우스 오버효과 */
+.sitemap .site_nav >ul>li:hover{
+    background-color: #032f34;
+}
+.sitemap .site_nav >ul > li:hover .site_sub li a{
+    opacity: 0.5;
+}
+.sitemap .site_nav >ul > li:hover .site_sub li a:hover{
+    opacity: 1;
+}
+.sitemap .site_nav >ul>li:hover>a:after{
+    width: 100%;
+}
+
+/* 사이트맵 푸터부분 */
+.sitemap .site_footer{
+    width: 30%;
+    height: 100vh;
+    background-image: url(../img/nav_img.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+.sitemap .site_footer .site_footer_txt{
+    position: absolute;
+    padding: 1vw;
+    bottom: 0;
+}
+.sitemap .site_footer .site_footer_txt h1{
+    font-size: 1.2vw;
+    padding-bottom: 1vw;
+}
+.sitemap .site_footer .site_footer_txt p{
+    font-size: 0.8vw;
+    line-height: 1.8;
+}
+.sitemap .site_close{
+    position: absolute;
+    right: 1.5vw;
+    top: 1.5vw;
+    width: 3vw;
+}
+
+/* main_slide 시-작! */
+.main{
+    width: 100vw;
+    height: 100vh;
+    position: relative; /*화면 오른쪽의 아이콘나열이 slide에 겹침*/
+}
+.main .visual{
+    width: 100vw;
+    height: 100vh;
+    position: relative; /*center_img영역과 bottom_img영역이 겹침*/
+    display: flex;
+    flex-flow: row nowrap;
+    background-image: url(../img/mainslide_bg.png);
+    overflow: hidden;
+}
+.main .visual .left_img{
+    width: 50vw;
+    height: 100vh;
+    position: relative;
+}
+.main .visual .right_txt{
+    width: 50vw;
+    height: 100vh;
+    position: relative;
+}
+.main .visual .left_img>div{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+/* main slide의 .center_img 시-작! */
+.main .visual .center_img{
+    width: 20vw;
+    position: absolute;
+    left: 50%;
+    margin-left: -9vw;
+    top: 50%;
+    margin-top: -20vh;
+    z-index: 10;
+}
+.main .visual .center_img>div{
+    position: absolute;
+    animation: moving 4s ease infinite;
+}
+/* main slide의 .right_txt 시작! */
+.main .visual .right_txt>div{
+    position: absolute;
+    width: 100%;
+    height: 50vh;
+    top: 50%;
+    margin-top: -20vh;
+    padding: 0 13vw;
+    color: #fff;
+}
+.main .visual .right_txt .main_txt .main_txt_wrap{
+    width: 100%;
+    /* height: 12vh; */
+    overflow: hidden;
+}
+.main .visual .right_txt .main_txt .main_txt_wrap span,
+.main .visual .right_txt .main_txt .main_txt_wrap p{
+    display: block;
+    margin-top: -10vh;
+}
+/* 슬라이드 오른쪽 글자중 첫번째 스타일 */
+.main .visual .right_txt .main_txt .txt1 span {
+    font-size: 0.5vw;
+    font-weight: 500;
+    margin-bottom: 1vw;
+}
+/* 슬라이드 오른쪽 글자중 두번째 스타일 */
+.main .visual .right_txt .main_txt .txt2 span {
+    font-family: 'GongGothicLight';    
+    font-size: 1.5vw;
+    color: #fcae70;
+    margin-bottom: 0.5vw;
+}
+/* 슬라이드 오른쪽 글자중 세번째 스타일 */
+.main .visual .right_txt .main_txt .txt3 span{
+    font-size: 1.5vw;
+    font-family: 'GongGothicMedium';
+    color: #fcae70;
+    margin-bottom: 1vw;
+}
+/* 슬라이드 오른쪽 글자중 네번째 스타일 */
+.main .visual .right_txt .main_txt .txt4 span{
+    font-size: 0.6vw;
+    line-height: 1vw;
+}
+.main .visual .right_txt .main_txt .txt4 p{
+    font-size: 0.6vw;
+    font-weight: 700;
+}
+/* 슬라이드 오른쪽 글자 애니메이션 엑티브 설정 */
+.main .visual .right_txt .main_txt.active .ani01 span{
+    transition: all 0.5s;
+    transition-delay: 0.1s;    
+    margin-top:0;
+}
+.main .visual .right_txt .main_txt.active .ani02 span{
+    transition: all 0.5s;
+    transition-delay: 0.4s;
+    margin-top:0;
+}
+.main .visual .right_txt .main_txt.active .ani03 span,
+.main .visual .right_txt .main_txt.active .ani03 p{
+    transition: all 0.5s;
+    transition-delay: 0.7s;   
+    margin-top:0;
+}
+
+.main .visual .right_txt .main_txt .main_more_btn{
+    transition: all 0.5s;
+    transition-delay: 1s;
+    opacity: 0;
+}
+.main .visual .right_txt .main_txt.active .main_more_btn{
+    opacity: 1;
+}
+
+/* 슬라이드 더 알아보기 버튼 스타일 */
+.main .visual .right_txt .main_txt .main_more_btn{
+    width: 7vw;
+    border-radius: 10px;
+    background-color: #fcae70;
+    margin-top: 3vw;
+}
+.main .visual .right_txt .main_txt .main_more_btn a{
+    padding: 1vw;
+    text-align: center;
+    color: #005760;
+    font-family: 'GongGothicMedium';
+}
+.main .visual .right_txt .main_txt .main_more_btn a:hover{
+    border-radius: 10px;
+    background-color: #032f34;
+    color: #fcae70;
+}
+.main .slide_bar{
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    z-index: 11;
+}
+.main .slide_bar .bar{
+    width: 0;
+    height: 3px;
+    background-color: #fcae70;
+}
+.main .bottom_btn{
+    position: absolute;
+    bottom: 0vw;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+}
+.main .bottom_btn button{
+    width: 110px;
+    height: 40px;
+    font-size: 0.8vw;
+    font-weight: 500;
+    color: #fff;
+    background-color: rgba(255,255,255,0.2);
+    border: none;
+    margin: 0;
+}
+.main .bottom_btn .prev_btn{
+    border-radius: 10px 0 0 10px;
+}
+.main .bottom_btn .next_btn{
+    border-radius: 0 10px 10px 0;
+}
+
+/* 슬라이드 아래쪽의 슬라이드 위치 바? */
+.main .bottom_btn .bottom_block{
+    width: 220px;
+    /* height: 1vw; */
+    padding: 1.5vw 0;
+    display:flex;
+    justify-content: space-between;
+}
+.main .bottom_btn .bottom_block a{
+    width: 2.5vw;
+    height: 0.5vw;
+    background-color: #fff;
+}
+.main .bottom_btn .bottom_block a.active{
+    background-color: #fcae70;
+}
+/* 메인 아이콘 */
+.main_icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 3vw;
+}
+.main_icon ul li{
+    width: 1.5vw;
+    margin: 50px 0;
+}
+.main_icon ul li a{
+    font-size: 0.7vw;
+    color: #fff;
+    text-align: center;
+}
+.main_icon ul li a span{
+    display: block;
+    box-sizing: border-box;
+    width: 3vw;
+}
+.main_icon ul li a span img{
+    width: 1.5vw;
+    padding: 0.7vw;
+    border-radius: 15px;
+    background-color: #032f34;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5vw;
+}
+.main_icon ul li:last-child a span img{
+    height: 1.3vw;
+}
+.main_icon ul li a span:hover img{
+    background-color: #fcae70;
+}
+
+section h1{
+    text-align: center;
+    font-size: 1.5vw;
+    color: #005760;
+    font-family: 'GongGothicLight';
+    margin-top: 5vw;
+}
+
+/* program 시작~*/
+.box_wrap{
+    display: flex;
+    justify-content: space-around;
+}
+.box{
+    width: 70vw;
+    height: 70vh;
+    margin-top: 2vw;
+    left: 44%;
+    transform: translateX(-50%);
+    position: relative;
+    overflow: hidden;
+}
+.box ul{
+    width: 135vw;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+}
+.box ul li{
+    position: relative; /*자식객체 box_txt가 absolute임*/
+}
+.box ul li:nth-child(2),
+.box ul li:nth-child(3){
+    left: 1%;
+}
+.box ul li:nth-child(2),
+.box ul li:nth-child(5){
+    margin-top: 7vw;
+}
+
+.box ul li .box_img{
+    position: relative; /*자식객체인 box_move가 absolute임*/
+    width: 20vw; height: 20vw;
+}
+.box ul li .box_img .box_hover{
+    width: 100%;
+    height: 100%;
+}
+.box ul li .box_img .box_hover .box_circle{
+    width: 60%; height: 60%;
+    background-image: url(../img/pc_c.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(0);
+    transition: all 0.5s;
+}
+.box ul li .box_img .box_hover:hover .box_circle{
+    transform: scale(1);
+}
+.box ul li .box_img .box_hover .box_in {
+    position: absolute;
+    width: 13vw;
+    height: 13vw;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+.box ul li .box_img .box_hover .box_in .box_move{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;    
+    width: 13vw;
+    height: 13vw;  
+    transition:all 0.5s;
+    transform:scale(1);
+}
+.box ul li .box_img .box_hover:hover .box_in .box_move{
+    transform:scale(1.2);
+}
+.box ul li .box_img .box_hover .m1{
+    background-image: url(../img/feeding_pro.png);
+}
+.box ul li .box_img .box_hover .m2{
+    background-image: url(../img/education_pro.png);
+}
+.box ul li .box_img .box_hover .m3{
+    background-image: url(../img/ecology_pro.png);
+}
+.box ul li .box_img .box_hover .m4{
+    background-image: url(../img/show_pro.png);
+}
+.box ul li .box_img .box_hover .m5{
+    background-image: url(../img/special_pro.png);
+}
+.box ul li .box_img .box_hover .m6{
+    background-image: url(../img/special_pro2.png);
+}
+
+/* program .box_txt 시작 */
+.box ul li .box_txt{
+    position: absolute;
+    top: 13vw;
+    left: 3.5vw;
+    width: 20vw;
+    transform: translateY(5vw);
+}
+.box ul li .box_txt h1{
+    text-align: left;
+    font-size: 1vw;
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    margin-top:1vw;
+}
+.box ul li .box_txt p{
+    font-size: 0.6vw;
+    line-height: 1.3vw;
+    margin-top: 1vw;
+    font-family: 'Noto Sans KR';
+    color: #616161;
+    font-weight: 500;
+}
+
+/* program arrow 시작! */
+.box_btn{
+    width: 2.4vw;
+    height: 2.5vw;
+    background-image: url(../img/arrow.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+    clear: both;
+    text-indent: -9999px;
+    margin-top: 30vh;
+}
+.box_btn a{
+    height: 100%;
+}
+
+/* place 시작! 세개 세트! */
+.place_wrap{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100vw;
+    height: 100vh;
+}
+.place_wrap .place{
+    width: 33.333333333%;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.place_wrap .p1{background-image: url(../img/set1.png);}
+.place_wrap .p2{background-image: url(../img/set2.png);}
+.place_wrap .p3{background-image: url(../img/set3.png);}
+.place_wrap .rect{
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+}
+.place_wrap .place:hover .rect{
+    opacity: 1;
+}
+.place_wrap .place .place_txt{
+    color: #fff;
+    text-align: center;
+    top: 17vw;
+    width: 100%;
+    position: absolute; /*rect때문에 글씨가 겹쳐서 앞으로 나오게 할려고 씀*/
+}
+.place_wrap .place .place_txt h1{
+    font-size: 1.5vw;
+    color: #fff;
+}
+.place_wrap .place .place_txt p{
+    font-size: 0.8vw;
+    margin-top: 2vw;
+}
+.mo_box_wrap{display: none;}
+
+/* about시작! */
+.about{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 70vw;
+    margin: 0 auto;
+}
+.about .about_txt{
+    width: 30vw;
+    margin-top: 6vw;
+}
+.about .about_txt span{
+    font-family: 'GongGothicLight';
+    color: #005760;
+    font-size: 1vw;
+}
+.about .about_txt h1{
+    font-size: 2vw;
+    text-align: left;
+    margin-top: 1vw;
+}
+.about .about_txt p{
+    margin-top: 1vw;
+    font-size: 1.1vw;
+}
+.about .about_txt .about_btn{
+    width: 7vw;
+    height: 2.5vw;
+    margin-top: 3vw;
+    border-radius: 0.4vw;
+    background-color: #fcae70;
+}
+.about .about_txt .about_btn:hover{
+    background-color: #005760;
+    transition: all 0.5s;
+}
+.about .about_txt .about_btn a{
+    text-align: center;
+    line-height: 2.5vw;
+    font-family: 'GongGothicLight';
+    color: #fff;
+}
+.about .about_img_in{
+    position: relative;
+    width: 40vw;
+}
+.about .about_img{
+    position: absolute;
+    width: 40vw;
+}
+.about .about_img_in .about_bg{
+    position: absolute;
+    width: 20vw;
+    height: 20vw;
+    background-image: url(../img/about_txt.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: -7vw; bottom: 5vw;
+    animation: moving2 5s ease-out infinite;
+}
+
+/* footer시작! */
+footer{
+    width: 3vw;
+    height: 6vw;
+    background-color: #005760;
+}
+footer .f_logo{
+    width: 6vw;
+    margin: 0 auto;
+    margin-top: 2vw;
+    margin-bottom: 1.5vw;
+}
+footer address{
+    text-align: center;
+    font-style: normal;
+    color: #fff;
+    font-size: 0.7vw;
+    line-height: 1.2vw;
+    margin-bottom: 1vw;
+}
+footer .sns_list{
+    margin: 0 auto;
+    width:20vw;
+    opacity: 0.6;
+}
+footer .sns_list ul{
+    display: flex;
+    flex-flow: row nowrap;
+}
+footer .sns_list ul li{
+    margin-left: 1vw;
+}
+footer .f_copy{
+    height: 2vw;
+    text-align: center;
+    background-color: #fcae70;
+    color: #005760;
+    font-size: 0.7vw;
+    line-height: 2vw;
+    margin-top: 1.5vw;
+}
+
+/* fullpage의 navigation 스타일 지정 */
+#fp-nav ul li a{
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    margin: -5px 0 0 -5px;
+}
+#fp-nav ul li a.active span{
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: -5px 0 0 -5px;
+}
+#fp-nav ul li:last-child{display: none;}
+#fp-nav ul li:nth-child(even) a.active span{background-color: #005760;}
+#fp-nav ul li:nth-child(even) .fp-tooltip{color: #005760;}
+
+/* 마지막 footer에서는 navigation안보임 */
+.fp-viewing-4 #fp-nav{
+    display: none;
+}
+/* .mo_menu{display: none;} */
+
+/* 노트북버전 */
+@media screen and (max-width:1600px){
+    
+}
+/* 태블릿버전 */
+@media screen and (max-width:1280px){
+    
+}
+/* 모바일버전 */
+@media screen and (max-width:480px){
+    header { position:absolute; top: 0;}
+    header .logo{
+        width: 20vw;
+        margin: 2vw;
+    }
+    header .menu{justify-content: flex-end;}
+    header .menu_btn{
+        width: 10vw;
+        height: 10vw;
+        margin: 2.5vw;
+        background-size: 20vw;
+        background-position: left;
+    }
+    section{position: absolute; z-index: 1;}
+    section h1 { font-size:4vw; }
+    .main{
+        height: 80vh;
+    }
+    .main .visual{
+        height: 80vh;
+        background-color: transparent;
+        background-image: none;
+    }
+    .main .visual .left_img,.main .visual .right_txt{
+        width: 100vw;
+        height: 80vh;
+        position: absolute;
+        left: 0; top: 0;
+    }
+    .main .visual .right_txt{
+        z-index: 55;
+    }
+    .main .visual .left_img{
+        width: 300vw;
+    }
+    .main .visual .left_img>div{
+        height: 80vh;
+        width: 100vw;
+        position: relative;
+        float: left;
+    }
+    .main .visual .center_img{
+        width: 300vw;
+        left: 0;
+        margin-left: -5vw;
+        top: 50%;
+        margin-top: 0;
+    }
+    .main .visual .center_img .center_photo{
+        width: 100vw;
+        position: relative;
+        float: left;
+        text-align: right;
+    }
+    .main .visual .center_img .center_photo img{
+        width: 50vw;
+    }
+    .main .slide_bar {display: none;}
+    .main .slide_bar,.main_icon{
+        display: none;
+    }
+    .main .bottom_btn{
+        left: 0;
+        top: 85vw;
+        transform: translateX(0);
+    }
+    .main .bottom_btn button{
+        width: 38px;
+        height: 38px;
+        color: #fff;
+        font-size: 0;
+        margin-left: 3vw;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+    }
+    .main .bottom_btn .prev_btn{
+        background-image: url(../img/arrow_left_m.png);
+    }
+    .main .bottom_btn .prev_btn:hover{
+        opacity: 0.7;
+    }
+    .main .bottom_btn .next_btn{
+        background-image: url(../img/arrow_right_m.png);
+    }
+    .main .bottom_btn .next_btn:hover{
+        opacity: 0.7;
+    }
+    .main .bottom_btn .bottom_block{
+        position: absolute;
+        width: 120px;
+        top: 10vw;
+        padding: 1.5vw;
+    }
+    .main .bottom_btn .bottom_block a{
+        width: 6vw;
+        height: 1vw;
+        background-color: #fff;
+    }
+    .main .bottom_btn .bottom_block a.active{
+        background-color: #fcae70;
+    }
+    .main .visual .right_txt .main_txt .txt_total{height: 23vh;}
+    
+    .main .visual .right_txt{height: 70vh;}
+    /* 슬라이드 오른쪽 글자중 첫번째 스타일 */
+    .main .visual .right_txt .main_txt .txt1 span {
+        font-size: 0.5vw;
+        font-weight: 500;
+        margin-bottom: 2vw;
+    }
+    /* 슬라이드 오른쪽 글자중 두번째 스타일 */
+    .main .visual .right_txt .main_txt .txt2 span {
+        font-family: 'GongGothicLight';    
+        font-size: 3vw;
+        color: #fcae70;
+        margin-bottom: 0.5vw;
+    }
+    /* 슬라이드 오른쪽 글자중 세번째 스타일 */
+    .main .visual .right_txt .main_txt .txt3 span{
+        font-size: 5vw;
+        font-family: 'GongGothicMedium';
+        color: #fcae70;
+        margin-bottom: 5vw;
+    }
+    /* 슬라이드 오른쪽 글자중 네번째 스타일 */
+    .main .visual .right_txt .main_txt .txt4 span{
+        font-size: 2vw;
+        line-height: 3vw;
+    }
+    .main .visual .right_txt .main_txt .txt4 p{
+        font-size: 0.6vw;
+        font-weight: 700;
+    }
+    /* 슬라이드 더 알아보기 버튼 스타일 */
+    .main .visual .right_txt .main_txt .main_more_btn{
+        width: 20vw;
+        font-size: 2.5vw;
+        border-radius: 5px;
+        background-color: #fcae70;
+        margin-top: 3vw;
+    }
+    .main .visual .right_txt .main_txt .main_more_btn a{
+        padding: 1vw;
+        text-align: center;
+        color: #005760;
+        font-family: 'GongGothicMedium';
+    }
+    .main .visual .right_txt .main_txt .main_more_btn a:hover{
+        border-radius: 5px;
+        background-color: #032f34;
+        color: #fcae70;
+    }
+    /* pc버전 사이트맵 숨김 */
+    .sitemap{display: none;}
+
+
+    /* 모바일 버전 .sitemap은 햄버거 메뉴 (menu_btn)클릭하면 나타남 */
+    .mo_menu{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0; left: 0;
+        z-index: 200;
+        background-color: #005760;
+        padding: 5vw;
+    }
+    .mo_menu .mo_logo{
+        width: 25vw;
+        margin-bottom: 5vw;
+    }
+    .mo_menu .mo_nav>ul>li{
+        border-bottom: 1px solid rgba(255,255,255,0.5);
+    }
+    .mo_menu .mo_nav>ul>li>a{
+        color: #fcae70;
+        font-size: 4vw;
+        font-family: 'GongGothicLight';
+        padding: 5vw 2vw 2vw;
+    }
+    /* 모바일 서브페이지 */
+    .mo_menu .mo_nav .mo_sub{
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    .mo_menu .mo_nav .mo_sub li{
+        border-bottom: none;
+    }
+    .mo_menu .mo_nav .mo_sub li a{
+        font-size: 3vw;
+        white-space: nowrap;
+        padding: 2vw;
+        color: #fff;
+    }
+    
+    /* 모바일 menu 아이콘 */
+    .mo_menu .mo_icon{margin-top: 5vw; margin-left: 1vw;}
+    .mo_menu .mo_icon>ul{
+        display: flex;
+        flex-flow: row nowrap;
+    } 
+    .mo_menu .mo_icon>ul>li a{
+        padding: 4vw;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-right: none;
+        color: #fff;
+        white-space: nowrap;
+        font-size: 3vw;
+        flex-flow: column nowrap;
+    }
+    .mo_menu .mo_icon>ul>li a span img{
+        width: 5vw;
+        margin-right: 2vw;
+    }
+    .mo_menu .mo_icon>ul>li:first-child a span img{
+        width: 4.8vw;
+    }
+    .mo_menu .mo_icon>ul>li:last-child a span img{
+        width: 6vw;
+        margin-top: 1vw;
+    }
+    .mo_menu .mo_icon>ul>li:last-child{
+        border-right: 1px solid rgba(255,255,255,0.3);
+    }
+    .mo_menu .mo_address{
+        margin-top: 5vw;
+        color: #fff;
+        font-size: 4vw;
+        font-style: normal;
+        line-height: 6vw;
+    }
+    .mo_menu .mo_address h1{
+        font-size: 3vw;
+    }
+    .mo_menu .mo_address p{
+        font-size: 3vw;
+    }
+    .mo_menu .mo_close{
+        width: 10vw;
+        position: absolute;
+        top: 4vw; right: 4vw;
+
+    }
+
+    /* program 시작 */
+    .box_wrap{display: none;}
+    .mo_box_wrap{display: block; margin-top: 10vw;}
+    .mo_box_wrap .mo_box{
+        width: 100%;
+        height: 70vh;
+        position: relative;
+    }
+    .mo_box_wrap .mo_box ul{
+        position: absolute;
+        left: 0;
+        width: 300vw;
+        display: flex;
+    }
+    .mo_box_wrap .mo_box ul li{
+        width: 100vw;
+        padding: 10vw 15vw;
+    }
+    .mo_box_wrap .mo_box ul li a{
+        display: flex;
+    }
+    .mo_box_wrap .mo_box ul li a:nth-child(2n){
+        margin-top: 15vw;
+    }
+    .mo_box_wrap .mo_box ul li a>div{
+        width: 50vw;
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .box_move{
+        width: 32vw;
+        height: 32vw;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m1{
+        background-image: url(../img/feeding_pro.png);
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m2{
+        background-image: url(../img/education_pro.png);
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m3{
+        background-image: url(../img/ecology_pro.png);
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m4{
+        background-image: url(../img/show_pro.png);
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m5{
+        background-image: url(../img/special_pro.png);
+    }
+    .mo_box_wrap .mo_box ul li .box_img .box_hover .m6{
+        background-image: url(../img/special_pro2.png);
+    }
+
+    .mo_box_wrap .mo_box ul li .box_txt{
+        padding: 1vw;
+    }
+    .mo_box_wrap .mo_box ul li .box_txt h1{
+        font-size: 3vw;
+        margin-top: 0;
+        margin-bottom: 1vw;
+        text-align: left;
+        line-height: 6vw;
+    }
+    .mo_box_wrap .mo_box ul li .box_txt p{
+        font-size: 2.5vw;
+        line-height: 4vw;
+    }
+
+    /* .place_wrap 시작 */
+    .place_wrap{
+        flex-flow: row wrap;
+    }
+    .place_wrap .place{
+        width: 100%;
+    }
+    .place_wrap .p3{
+        background-position: unset;
+    }
+    .place_wrap .place .rect{
+        opacity: 0.5;
+    }
+    .place_wrap .place .place_txt h1{
+        margin-top: 0;
+        font-size: 4vw;
+    }
+    .place_wrap .place .place_txt p{
+        font-size: 3vw;
+    }
+
+    #s4{height: 60vh;}
+    /* about 시작 */
+    .about{
+        flex-flow: row wrap;
+    }
+    .about .about_txt{
+        width: 100%;
+    }
+    .about .about_txt span{
+        margin-top: 5vw;
+        font-size: 2vw;
+        text-align: center;
+        display: block;
+        margin-bottom: 1vw;
+    }
+    .about .about_txt h1{
+        font-size: 4vw;
+        text-align: center;
+        margin-bottom: 5vw;
+    }
+    .about .about_txt p{
+        font-size: 3vw;
+        line-height: 3vw;
+        text-align: center;
+        margin-bottom: 5vw;
+    }
+    .about .about_img_in{
+        width: 100%;
+    }
+    .about .about_img_in .about_bg{
+        width: 20vw;
+        height: 20vw;
+        top: 18vh;
+    }
+    .about .about_img{
+        width: 70vw;
+    }
+    .about .about_txt .about_btn{
+        width: 20vw;
+        height: 7vw;
+        margin-top: 3vw;
+        border-radius: 1vw;
+        background-color: #fcae70;
+        position: absolute;
+        z-index: 5;
+        bottom: 55vw; 
+        left: 50%;
+        transform: translateX(-50%); 
+    }
+    .about .about_txt .about_btn:hover{
+        background-color: #005760;
+        transition: all 0.5s;
+    }
+    .about .about_txt .about_btn a{
+        text-align: center;
+        line-height: 7vw;
+        font-family: 'GongGothicLight';
+        color: #fff;
+        font-size: 3vw;
+    }
+
+    /* footer시작! */
+    footer{
+        width: 100%;
+        height: 40vw;
+        background-color: #005760;
+        position: relative;
+        z-index: 1;
+    }
+    footer .f_logo{
+        width: 15vw;
+        margin: 0 auto;
+        margin-top: 5vw;
+        margin-bottom: 4vw;
+    }
+    footer address{
+        text-align: center;
+        font-style: normal;
+        color: #fff;
+        font-size: 3vw;
+        line-height: 4vw;
+        margin-bottom: 4vw;
+    }
+    footer .sns_list{
+        margin: 0 auto;
+        width:50vw;
+        opacity: 0.6;
+    }
+    footer .sns_list ul{
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    footer .sns_list ul li{
+        margin-left: 3vw;
+    }
+    footer .f_copy{
+        height: 5vw;
+        text-align: center;
+        background-color: #fcae70;
+        color: #005760;
+        font-size: 0.7vw;
+        line-height: 5vw;
+        margin-top: 5vw;
+    }
+}
